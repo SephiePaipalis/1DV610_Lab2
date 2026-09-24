@@ -28,21 +28,21 @@ export class Binding {
     }
 
     /**
-     * mark pressed
+     * Mark pressed.
      */
     press() {
         this.#pressed = true
     }
 
     /**
-     * mark release
+     * Mark released.
      */
     release() {
         this.#pressed = false
     }
 
     /**
-     * Checks if pressed
+     * Checks if pressed.
      * 
      * @returns 
      */
