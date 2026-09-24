@@ -26,4 +26,27 @@ export class Binding {
     getInput() {
         return this.#input
     }
+
+    /**
+     * mark pressed
+     */
+    press() {
+        this.#pressed = true
+    }
+
+    /**
+     * mark release
+     */
+    release() {
+        this.#pressed = false
+    }
+
+    /**
+     * Checks if pressed
+     * 
+     * @returns 
+     */
+    isPressed() {
+        return this.#pressed
+    }
 }
