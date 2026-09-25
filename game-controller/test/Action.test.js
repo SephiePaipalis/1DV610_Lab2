@@ -35,3 +35,14 @@ test ('Action does not add same input twice', () => {
 
     assert.equal(action.getBindings().length, 1)
 })
+
+test ('Test can have different inputs', () => {
+    const action = new Action('move')
+    const spaceBinding = new Binding('SPACE')
+    const wBinding = new Binding('W')
+
+    action.addBinding(spaceBinding)
+    action.addBinding(wBinding)
+
+    assert.equal(action.getBindings().length, 2)
+})
