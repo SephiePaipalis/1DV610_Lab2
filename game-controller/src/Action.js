@@ -23,4 +23,8 @@ export class Action {
     getName() {
         return this.#name
     }
+
+    getBindings() {
+        return this.#bindings
+    }
 }
