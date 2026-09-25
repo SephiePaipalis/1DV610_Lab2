@@ -28,6 +28,11 @@ export class Action {
         return this.#bindings
     }
 
+    /**
+     * Adds binding to action.
+     * 
+     * @param {Binding} binding - The binding to add.
+     */
     addBinding(binding) {
         const alreadyBound = this.#bindings.some(
             existingBinding => existingBinding.getInput() === binding.getInput()
@@ -37,4 +42,5 @@ export class Action {
             this.#bindings.push(binding)
         }
     }
+
 }
