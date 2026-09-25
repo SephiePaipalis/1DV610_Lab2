@@ -54,4 +54,17 @@ export class Action {
         return this.#enabled
     }
 
+    /**
+     * Disables action.
+     */
+    disable() {
+        this.#enabled = false
+    }
+
+    /**
+     * Enables action.
+     */
+    enable() {
+        this.#enabled = true
+    }
 }

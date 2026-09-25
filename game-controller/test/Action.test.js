@@ -52,3 +52,20 @@ test('Action is enabled by default', () => {
 
     assert.equal(action.isEnabled(), true)
 })
+
+test('Action can be disabled', () => {
+    const action = new Action('jump')
+
+    action.disable()
+
+    assert.equal(action.isEnabled(), false)
+})
+
+test ('Action can be enabled', () => {
+    const action = new Action('jump')
+
+    action.disable()
+    action.enable()
+
+    assert.equal(action.isEnabled(), true)
+})
