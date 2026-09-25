@@ -69,3 +69,22 @@ test ('Action can be enabled', () => {
 
     assert.equal(action.isEnabled(), true)
 })
+
+test ('Action is active when binding is pressed', () => {
+    const action = new Action('jump')
+    const binding = new Binding('SPACE')
+
+    action.addBinding(binding)
+    binding.press()
+
+    assert.equal(action.isActive(), true)
+})
+
+test ('Action is not active when no binding is pressed', () => {
+    const action = new Action('jump')
+    const binding = new Binding('SPACE')
+
+    action.addBinding(binding)
+
+    assert.equal(action.isActive(), false)
+})

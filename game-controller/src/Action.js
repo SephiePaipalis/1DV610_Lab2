@@ -67,4 +67,18 @@ export class Action {
     enable() {
         this.#enabled = true
     }
+
+    /**
+     * Checks if action is currently active.
+     * 
+     * An action is active when its enabled and 
+     * at least one of its bindings is pressed
+     * 
+     * @returns {boolean} - True if action is active.
+     */
+    isActive() {
+        return this.#enabled && this.#bindings.some(
+            binding => binding.isPressed()
+        )
+    }
 }
