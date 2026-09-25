@@ -88,3 +88,14 @@ test ('Action is not active when no binding is pressed', () => {
 
     assert.equal(action.isActive(), false)
 })
+
+test ('Disabled action is not active when binding is pressed', () => {
+    const action = new Action('jump')
+    const binding = new Binding('SPACE')
+
+    action.addBinding(binding)
+    binding.press()
+    action.disable()
+
+    assert.equal(action.isActive(), false)
+})
