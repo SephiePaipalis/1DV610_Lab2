@@ -27,4 +27,8 @@ export class Action {
     getBindings() {
         return this.#bindings
     }
+
+    addBinding(binding) {
+        this.#bindings.push(binding)
+    }
 }
