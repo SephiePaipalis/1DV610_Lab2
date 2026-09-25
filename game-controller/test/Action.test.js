@@ -36,7 +36,7 @@ test ('Action does not add same input twice', () => {
     assert.equal(action.getBindings().length, 1)
 })
 
-test ('Test can have different inputs', () => {
+test ('Action can have different inputs', () => {
     const action = new Action('move')
     const spaceBinding = new Binding('SPACE')
     const wBinding = new Binding('W')
@@ -45,4 +45,10 @@ test ('Test can have different inputs', () => {
     action.addBinding(wBinding)
 
     assert.equal(action.getBindings().length, 2)
+})
+
+test('Action is enabled by default', () => {
+    const action = new Action('jump')
+
+    assert.equal(action.isEnabled(), true)
 })

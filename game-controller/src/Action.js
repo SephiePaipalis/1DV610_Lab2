@@ -6,6 +6,7 @@ import { Binding } from './Binding.js'
 export class Action {
     #name
     #bindings
+    #enabled
 
     /**
      * Creates new action.
@@ -13,6 +14,7 @@ export class Action {
     constructor(name) {
         this.#name = name
         this.#bindings = []
+        this.#enabled = true
     }
 
     /**
@@ -41,6 +43,15 @@ export class Action {
         if (!alreadyBound) {
             this.#bindings.push(binding)
         }
+    }
+
+    /**
+     * Checks if action is enabled.
+     * 
+     * @returns {boolean} - True if action is enabled.
+     */
+    isEnabled() {
+        return this.#enabled
     }
 
 }
