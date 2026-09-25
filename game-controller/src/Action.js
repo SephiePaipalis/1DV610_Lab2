@@ -29,6 +29,12 @@ export class Action {
     }
 
     addBinding(binding) {
-        this.#bindings.push(binding)
+        const alreadyBound = this.#bindings.some(
+            existingBinding => existingBinding.getInput() === binding.getInput()
+        )
+
+        if (!alreadyBound) {
+            this.#bindings.push(binding)
+        }
     }
 }
