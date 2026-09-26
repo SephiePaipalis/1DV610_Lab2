@@ -50,3 +50,13 @@ test('ControlGroup does not add the ssame action twice', () => {
 
     assert.equal(group.getActions().length, 1)
 })
+
+test('ControlGroup add group to action when adding action', () => {
+    const group = new ControlGroup('Movement')
+    const action = new Action('Jump')
+
+    group.addAction(action)
+
+    assert.equal(group.getActions()[0], action)
+    assert.equal(action.getGroups()[0], group)
+})

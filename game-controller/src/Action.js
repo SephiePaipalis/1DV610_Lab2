@@ -111,7 +111,21 @@ export class Action {
      * @returns {boolean} - True if action is active.
      */
     isActive() {
-        return this.#enabled && this.#bindings.some(
+        if (!this.#enabled) {
+            return false
+        }
+
+        if (this.#groups.length > 0) {
+            const hasEnabledGroup = this.#groups.some(
+                group => group.isEnabled()
+            )
+
+            if (!hasEnabledGroup) {
+                return false
+            }
+        }
+
+        return this.#bindings.some(
             binding => binding.isPressed()
         )
     }

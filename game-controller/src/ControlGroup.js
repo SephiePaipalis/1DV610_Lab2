@@ -65,6 +65,7 @@ export class ControlGroup {
     addAction(action) {
         if (!this.#actions.includes(action)) {
             this.#actions.push(action)
+            action.addGroup(this)
         }
     }
 }

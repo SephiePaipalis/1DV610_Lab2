@@ -138,3 +138,18 @@ test('Action can add a group', () => {
     assert.equal(action.getGroups().length, 1)
     assert.equal(action.getGroups()[0], group)
 })
+
+test('Disabled group makes action inactive', () => {
+    const action = new Action('Jump')
+    const group = new ControlGroup('Movement')
+
+    action.addGroup(group)
+
+    const binding = new Binding('SPACE')
+    action.addBinding(binding)
+    binding.press()
+
+    group.disable()
+
+    assert.equal(action.isActive(), false)
+})
