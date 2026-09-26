@@ -4,6 +4,7 @@
 export class ControlGroup {
 
     #name
+    #enabled
     #actions
 
     /**
@@ -11,6 +12,7 @@ export class ControlGroup {
      */
     constructor(name) {
         this.#name = name
+        this.#enabled = true
         this.#actions = []
     }
 
@@ -23,12 +25,27 @@ export class ControlGroup {
         return this.#name
     }
 
+    /**
+     * Checks if group is enabled.
+     * 
+     * @returns {boolean} True if group is enabled.
+     */
     isEnabled() {
         return this.#enabled
     }
 
+    /**
+     * Disables group.
+     */
     disable() {
         this.#enabled = false
+    }
+
+    /**
+     * Enables group.
+     */
+    enable() {
+        this.#enabled = true
     }
 
     /**
