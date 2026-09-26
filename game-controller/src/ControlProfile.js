@@ -26,7 +26,21 @@ export class ControlProfile {
         return this.#name
     }
 
+    /**
+     * Returns actions beloning to profile.
+     * 
+     * @returns {Array} - Profile actions.
+     */
     getActions() {
         return this.#actions
+    }
+
+    /**
+     * Adds an action to profile.
+     * 
+     * @param {Action} action - The action to add. 
+     */
+    addAction(action) {
+        this.#actions.push(action)
     }
 }
