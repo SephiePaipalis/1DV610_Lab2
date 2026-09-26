@@ -45,6 +45,12 @@ export class Action {
         }
     }
 
+    removeBinding(input) {
+        this.#bindings = this.#bindings.filter(
+            binding => binding.getInput() !== input
+        )
+    }
+
     /**
      * Checks if action is enabled.
      * 

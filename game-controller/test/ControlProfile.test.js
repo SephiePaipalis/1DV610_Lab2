@@ -43,5 +43,11 @@ test('ControlProfile can find an action by name', () => {
 
     profile.addAction(action)
 
-    assert.equal(profile.getAction('jump'), action)
+    assert.equal(profile.getAction('Jump'), action)
+})
+
+test('ControlProfile returns null if action not found', () => {
+    const profile = new ControlProfile('Default')
+
+    assert.equal(profile.getAction('Jump'), null)
 })

@@ -99,3 +99,13 @@ test ('Disabled action is not active when binding is pressed', () => {
 
     assert.equal(action.isActive(), false)
 })
+
+test ('Action can remove binding', () => {
+    const action = new Action('Jump')
+    const binding = new Binding('SPACE')
+
+    action.addBinding(binding)
+    action.removeBinding('SPACE')
+    
+    assert.equal(action.getBindings().length, 0)
+})
