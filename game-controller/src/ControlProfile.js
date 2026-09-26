@@ -41,6 +41,12 @@ export class ControlProfile {
      * @param {Action} action - The action to add. 
      */
     addAction(action) {
-        this.#actions.push(action)
+        const alreadyExists = this.#actions.some(
+            existingAction => existingAction.getName() === action.getName()
+        )
+
+        if (!alreadyExists) {
+            this.#actions.push(action)
+        }
     }
 }

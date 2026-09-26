@@ -24,3 +24,15 @@ test('ControlProfile can add an action', () => {
     assert.equal(profile.getActions().length, 1)
     assert.equal(profile.getActions()[0], action)
 })
+
+test('ControlProfile does not add duplicates', () => {
+    const profile = new ControlProfile('Default')
+    const firstAction = new Action('jump')
+    const secondAction = new Action('jump')
+
+    profile.addAction(firstAction)
+    profile.addAction(secondAction)
+
+    assert.equal(profile.getActions().length, 1)
+    assert.equal(profile.getActions()[0], firstAction)
+})
