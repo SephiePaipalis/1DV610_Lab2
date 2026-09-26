@@ -6,12 +6,14 @@ import { ControlProfile } from './ControlProfile.js'
 export class GameControls {
 
     #profiles
+    #activeProfile
 
     /**
      * Create a new game control manager.
      */
     constructor() {
         this.#profiles = []
+        this.#activeProfile = null
     }
 
     /**
@@ -36,6 +38,18 @@ export class GameControls {
         if (!alreadyExists) {
             this.#profiles.push(profile)
         }
+    }
+
+    setActiveProfile(name) {
+        const profile = this.getProfile(name)
+
+        if (profile !== null) {
+            this.#activeProfile = profile
+        }
+    }
+
+    getActiveProfile() {
+        return this.#activeProfile
     }
 
     /**

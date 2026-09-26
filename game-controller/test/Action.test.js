@@ -153,3 +153,20 @@ test('Disabled group makes action inactive', () => {
 
     assert.equal(action.isActive(), false)
 })
+
+test('Enabled group keeps action active when another group is disabled', () => {
+    const action = new Action('Jump')
+    const movement = new ControlGroup('Movement')
+    const gameplay = new ControlGroup('Gameplay')
+
+    action.addGroup(movement)
+    action.addGroup(gameplay)
+
+    const binding = new Binding('SPACE')
+    action.addBinding(binding)
+    binding.press()
+
+    movement.disable()
+
+    assert.equal(action.isActive(), true)
+})
