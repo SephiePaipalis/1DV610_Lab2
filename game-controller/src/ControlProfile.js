@@ -49,4 +49,20 @@ export class ControlProfile {
             this.#actions.push(action)
         }
     }
+
+    /**
+     * Finds action by its name.
+     * 
+     * @param {string} name - Name of action.
+     * @returns {Action} - Matching action or null if not found.
+     */
+    getAction(name) {
+        for (const action of this.#actions) {
+            if (action.getName() === name) {
+                return action
+            }
+        }
+
+        return null
+    }
 }
