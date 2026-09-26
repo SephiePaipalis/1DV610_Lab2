@@ -2,6 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { Action } from '../src/Action.js'
 import { Binding } from '../src/Binding.js'
+import { ControlGroup } from '../src/ControlGroup.js'
 
 test('Action stores name', () => {
     const action = new Action('jump')
@@ -121,4 +122,19 @@ test ('Action keeps other bindings when removing a binding', () => {
 
     assert.equal(action.getBindings().length, 1)
     assert.equal(action.getBindings()[0], wBinding)
+})
+
+test('Action starts without groups', () => {
+    const action = new Action('Jump')
+    assert.equal(action.getGroups().length, 0)
+})
+
+test('Action can add a group', () => {
+    const action = new Action('Jump')
+    const group = new ControlGroup('Movement')
+
+    action.addGroup(group)
+
+    assert.equal(action.getGroups().length, 1)
+    assert.equal(action.getGroups()[0], group)
 })
