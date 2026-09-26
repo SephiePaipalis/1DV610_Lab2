@@ -109,3 +109,16 @@ test ('Action can remove binding', () => {
     
     assert.equal(action.getBindings().length, 0)
 })
+
+test ('Action keeps other bindings when removing a binding', () => {
+    const action = new Action('Jump')
+    const spaceBinding = new Binding('SPACE')
+    const wBinding = new Binding('W')
+
+    action.addBinding(spaceBinding)
+    action.addBinding(wBinding)
+    action.removeBinding('SPACE')
+
+    assert.equal(action.getBindings().length, 1)
+    assert.equal(action.getBindings()[0], wBinding)
+})
