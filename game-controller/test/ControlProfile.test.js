@@ -2,6 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { ControlProfile } from '../src/ControlProfile.js'
 import { Action } from '../src/Action.js'
+import { Binding } from '../src/Binding.js'
 
 test('ControlProfile stores name', () => {
     const profile = new ControlProfile('Default')
@@ -50,4 +51,40 @@ test('ControlProfile returns null if action not found', () => {
     const profile = new ControlProfile('Default')
 
     assert.equal(profile.getAction('Jump'), null)
+})
+
+test('ControlProfile can bind an input to an action', () => {
+    const profile = new ControlProfile('Default')
+    const action = new Action('Jump')
+
+    profile.addAction(action)
+    profile.bindAction('Jump', 'SPACE')
+
+    assert.equal(action.getBindings().length, 1)
+    assert.equal(action.getBindings()[0].getInput(), 'SPACE')
+})
+
+test('ControlPrfile can bind multiple inputs to an action', () => {
+    const profile = new ControlProfile('Default')
+    const action = new Action('Jump')
+
+    profile.addAction(action)
+    profile.bindAction('Jump', 'SPACE')
+    profile.bindAction('Jump', 'W')
+
+    assert.equal(action.getBindings().length, 2)
+    assert.equal(action.getBindings()[0].getInput(), 'SPACE')
+    assert.equal(action.getBindings()[1].getInput(), 'W')
+})
+
+test('ControlProfile does not add duplicate inputs to action', () => {
+    const profile = new ControlProfile('Default')
+    const action = new Action('Jump')
+
+    profile.addAction(action)
+
+    profile.bindAction('Jump', 'SPACE')
+    profile.bindAction('Jump', 'SPACE')
+
+    assert.equal(action.getBindings().length, 1)
 })

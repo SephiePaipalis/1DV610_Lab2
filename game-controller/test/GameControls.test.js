@@ -26,3 +26,15 @@ test('GameControls can find a profile via name', () => {
 
     assert.equal(controls.getProfile('Default'), profile)
 })
+
+test('GameControls does not add duplicate profile names', () => {
+    const controls = new GameControls()
+    const firstProfile = new ControlProfile('Default')
+    const secondProfile = new ControlProfile('Default')
+
+    controls.addProfile(firstProfile)
+    controls.addProfile(secondProfile)
+
+    assert.equal(controls.getProfiles().length, 1)
+    assert.equal(controls.getProfiles()[0], firstProfile)
+})

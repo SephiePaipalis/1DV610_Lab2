@@ -1,4 +1,6 @@
 import { Action } from './Action.js'
+import { Binding } from './Binding.js'
+
 /**
  * Represents a control configuration with actions and groups.
  */
@@ -47,6 +49,15 @@ export class ControlProfile {
 
         if (!alreadyExists) {
             this.#actions.push(action)
+        }
+    }
+
+    bindAction(actionName, input) {
+        const action = this.getAction(actionName)
+
+        if (action !== null) {
+            const binding = new Binding(input)
+            action.addBinding(binding)
         }
     }
 

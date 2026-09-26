@@ -23,10 +23,27 @@ export class GameControls {
         return this.#profiles
     }
 
+    /**
+     * Adds a profile to this manager.
+     * 
+     * @param {ControlProfile} profile - The profile to add. 
+     */
     addProfile(profile) {
-        this.#profiles.push(profile)
+        const alreadyExists = this.#profiles.some(
+            existingProfile => existingProfile.getName() === profile.getName()
+        )
+
+        if (!alreadyExists) {
+            this.#profiles.push(profile)
+        }
     }
 
+    /**
+     * Finds control profile via name.
+     * 
+     * @param {string} name - Name of the profile to find.
+     * @returns {ControlProfile} - Matching profile or null if not found.
+     */
     getProfile(name) {
         for (const profile of this.#profiles) {
             if (profile.getName() === name) {
