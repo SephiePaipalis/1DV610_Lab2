@@ -3,6 +3,7 @@ import assert from 'node:assert/strict'
 import { ControlProfile } from '../src/ControlProfile.js'
 import { Action } from '../src/Action.js'
 import { Binding } from '../src/Binding.js'
+import { ControlGroup } from '../src/ControlGroup.js'
 
 test('ControlProfile stores name', () => {
     const profile = new ControlProfile('Default')
@@ -102,4 +103,31 @@ test('ControlProfile does not bind same input to diffferent actions', () => {
 
     assert.equal(jump.getBindings().length, 1)
     assert.equal(attack.getBindings().length, 0)
+})
+
+test('ControlProfile starts without groups', () => {
+    const profile = new ControlProfile('Default')
+    assert.equal(profile.getGroups().length, 0)
+})
+
+test('ControlProfile can add a group', () => {
+    const profile = new ControlProfile('Default')
+    const group = new ControlGroup('Movement')
+
+    profile.addGroup(group)
+
+    assert.equal(profile.getGroups().length, 1)
+    assert.equal(profile.getGroups()[0], group)
+})
+
+test('ControlProfile does not add duplicate names', () => {
+    const profile = new ControlProfile('Default')
+    const firstGroup = new ControlGroup('Movement')
+    const secondGroup = new ControlGroup('Movement')
+
+    profile.addGroup(firstGroup)
+    profile.addGroup(secondGroup)
+
+    assert.equal(profile.getGroups().length, 1)
+    assert.equal(profile.getGroups()[0], firstGroup)
 })

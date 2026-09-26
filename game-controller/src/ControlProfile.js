@@ -1,5 +1,6 @@
 import { Action } from './Action.js'
 import { Binding } from './Binding.js'
+import { ControlGroup } from './ControlGroup.js'
 
 /**
  * Represents a control configuration with actions and groups.
@@ -8,6 +9,7 @@ export class ControlProfile {
 
     #name
     #actions
+    #groups
 
     /**
      * Creates new control profile
@@ -17,6 +19,7 @@ export class ControlProfile {
     constructor(name) {
         this.#name = name
         this.#actions = []
+        this.#groups = []
     }
 
     /**
@@ -35,6 +38,25 @@ export class ControlProfile {
      */
     getActions() {
         return this.#actions
+    }
+
+    /**
+     * Returns groups belonging to profile
+     * 
+     * @returns {Array} - Profile groups.
+     */
+    getGroups() {
+        return this.#groups
+    }
+
+    addGroup(group) {
+        const alreadyExists = this.#groups.some(
+            existingGroup => existingGroup.getName() === group.getName()
+        )
+
+        if (!alreadyExists) {
+            this.#groups.push(group)
+        }
     }
 
     /**
