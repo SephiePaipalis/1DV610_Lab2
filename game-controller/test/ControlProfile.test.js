@@ -88,3 +88,18 @@ test('ControlProfile does not add duplicate inputs to action', () => {
 
     assert.equal(action.getBindings().length, 1)
 })
+
+test('ControlProfile does not bind same input to diffferent actions', () => {
+    const profile = new ControlProfile('Default')
+    const jump = new Action('Jump')
+    const attack = new Action('Attack')
+
+    profile.addAction(jump)
+    profile.addAction(attack)
+
+    profile.bindAction('Jump', 'SPACE')
+    profile.bindAction('Attack', 'SPACE')
+
+    assert.equal(jump.getBindings().length, 1)
+    assert.equal(attack.getBindings().length, 0)
+})

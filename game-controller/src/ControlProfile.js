@@ -52,13 +52,33 @@ export class ControlProfile {
         }
     }
 
+    /**
+     * Binds an input to an action in current profile.
+     * 
+     * @param {string} actionName - Name of action. 
+     * @param {string} input - Input to bind.
+     */
     bindAction(actionName, input) {
         const action = this.getAction(actionName)
 
-        if (action !== null) {
-            const binding = new Binding(input)
-            action.addBinding(binding)
+        if (action === null) {
+            return
         }
+
+        for (const existingAction of this.#actions) {
+            if (existingAction === action) {
+                continue
+            }
+
+            for (const binding of existingAction.getBindings()) {
+                if (binding.getInput() === input) {
+                    return
+                }
+            }
+        }
+
+        const binding = new Binding(input)
+        action.addBinding(binding)
     }
 
     /**
