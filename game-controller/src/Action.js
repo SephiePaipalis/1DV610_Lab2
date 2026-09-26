@@ -1,4 +1,5 @@
 import { Binding } from './Binding.js'
+import { ControlGroup } from './ControlGroup.js'
 
 /**
  * Represents an action that can be triggered by bindings.
@@ -7,6 +8,7 @@ export class Action {
     #name
     #bindings
     #enabled
+    #groups
 
     /**
      * Creates new action.
@@ -15,6 +17,7 @@ export class Action {
         this.#name = name
         this.#bindings = []
         this.#enabled = true
+        this.#groups = []
     }
 
     /**
@@ -26,8 +29,33 @@ export class Action {
         return this.#name
     }
 
+    /**
+     * Returns action bindings.
+     * 
+     * @returns {Array} - Aciton bindings.
+     */
     getBindings() {
         return this.#bindings
+    }
+
+    /**
+     * Returns action groups.
+     * 
+     * @returns {Array} - Action groups.
+     */
+    getGroups() {
+        return this.#groups
+    }
+
+    /**
+     * Adds a group to action.
+     * 
+     * @param {ControlGroup} group - The group to add. 
+     */
+    addGroup(group) {
+        if (!this.#groups.includes(group)) {
+            this.#groups.push(group)
+        }
     }
 
     /**
