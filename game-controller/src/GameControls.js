@@ -40,6 +40,11 @@ export class GameControls {
         }
     }
 
+    /**
+     * Set active control profile.
+     * 
+     * @param {string} name - Profile name. 
+     */
     setActiveProfile(name) {
         const profile = this.getProfile(name)
 
@@ -48,8 +53,33 @@ export class GameControls {
         }
     }
 
+    /**
+     * Returns active control profile
+     * 
+     * @returns {ControlProfile} - The active profile or null if not found.
+     */
     getActiveProfile() {
         return this.#activeProfile
+    }
+
+    press(input) {
+        const profile = this.#activeProfile
+
+        if (profile === null) {
+            return
+        }
+
+        const action = profile.getActionByInput(input)
+
+        if (action === null) {
+            return
+        }
+
+        for (const binding of action.getBindings()) {
+            if (binding.getInput() === input) {
+                binding.press()
+            }
+        }
     }
 
     /**

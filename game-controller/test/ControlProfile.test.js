@@ -131,3 +131,13 @@ test('ControlProfile does not add duplicate names', () => {
     assert.equal(profile.getGroups().length, 1)
     assert.equal(profile.getGroups()[0], firstGroup)
 })
+
+test('ControlProfile can find action by input', () => {
+    const profile = new ControlProfile('Default')
+    const action = new Action('Jump')
+
+    profile.addAction(action)
+    profile.bindAction('Jump', 'SPACE')
+
+    assert.equal(profile.getActionByInput('SPACE'), action)
+})

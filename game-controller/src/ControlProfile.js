@@ -118,4 +118,22 @@ export class ControlProfile {
 
         return null
     }
+
+    /**
+     * Finds action by bound input.
+     * 
+     * @param {string} input - The input to search for. 
+     * @returns {Action} - The matching action or null if not found.
+     */
+    getActionByInput(input) {
+        for (const action of this.#actions) {
+            for (const binding of action.getBindings()) {
+                if (binding.getInput() === input) {
+                    return action
+                }
+            }
+        }
+
+        return null
+    }
 }

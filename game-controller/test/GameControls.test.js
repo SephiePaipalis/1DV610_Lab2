@@ -2,6 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { GameControls } from '../src/GameControls.js'
 import { ControlProfile } from '../src/ControlProfile.js'
+import { Action } from '../src/Action.js'
 
 test('GameControls starts without profiles', () => {
     const controls = new GameControls()
@@ -47,4 +48,19 @@ test('GameControls can set active profile', () => {
     controls.setActiveProfile('Default')
 
     assert.equal(controls.getActiveProfile(), profile)
+})
+
+test('GameControls can press an input', () => {
+    const controls = new GameControls()
+    const profile = new ControlProfile('Default')
+    const action = new Action('Jump')
+
+    profile.addAction(action)
+    profile.bindAction('Jump', 'SPACE')
+
+    controls.addProfile(profile)
+    controls.setActiveProfile('Default')
+    controls.press('SPACE')
+
+    assert.equal(action.isActive(), true)
 })
