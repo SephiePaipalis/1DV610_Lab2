@@ -112,6 +112,22 @@ export class GameControls {
         }
     }
 
+    isActionActive(actionName) {
+        const profile = this.#activeProfile
+
+        if (profile === null) {
+            return false
+        }
+
+        const action = profile.getAction(actionName)
+
+        if (action === null) {
+            return false
+        }
+
+        return action.isActive()
+    }
+
     /**
      * Finds control profile via name.
      * 

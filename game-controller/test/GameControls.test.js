@@ -81,3 +81,25 @@ test('GameControls can release an input', () => {
 
     assert.equal(action.isActive(), false)
 })
+
+test('GameControls can check if an action is active', () => {
+    const controls = new GameControls()
+    const profile = new ControlProfile('Default')
+    const action = new Action('Jump')
+
+    profile.addAction(action)
+    profile.bindAction('Jump', 'SPACE')
+
+    controls.addProfile(profile)
+    controls.setActiveProfile('Default')
+
+    assert.equal(controls.isActionActive('Jump'), false)
+
+    controls.press('SPACE')
+
+    assert.equal(controls.isActionActive('Jump'), true)
+
+    controls.release('SPACE')
+
+    assert.equal(controls.isActionActive('Jump'), false)
+})
