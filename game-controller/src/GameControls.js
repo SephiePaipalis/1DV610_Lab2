@@ -112,6 +112,12 @@ export class GameControls {
         }
     }
 
+    /**
+     * Checks if an action is active.
+     * 
+     * @param {string} actionName - Action to check.
+     * @returns {boolean} - True if action is active.
+     */
     isActionActive(actionName) {
         const profile = this.#activeProfile
 
