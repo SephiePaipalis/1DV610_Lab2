@@ -62,6 +62,11 @@ export class GameControls {
         return this.#activeProfile
     }
 
+    /**
+     * Presses an input from active control profile.
+     * 
+     * @param {string} input - Input to press
+     */
     press(input) {
         const profile = this.#activeProfile
 
@@ -78,6 +83,31 @@ export class GameControls {
         for (const binding of action.getBindings()) {
             if (binding.getInput() === input) {
                 binding.press()
+            }
+        }
+    }
+
+    /**
+     * Releases an input in active profile.
+     * 
+     * @param {string} input - The input to release.
+     */
+    release(input) {
+        const profile = this.#activeProfile
+
+        if (profile === null) {
+            return
+        }
+
+        const action = profile.getActionByInput(input)
+
+        if (action === null) {
+            return
+        }
+
+        for (const binding of action.getBindings()) {
+            if (binding.getInput() === input) {
+                binding.release()
             }
         }
     }
