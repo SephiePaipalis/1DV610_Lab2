@@ -32,8 +32,8 @@ Jag håller i stort sett med om reglerna i kapitlet. Däremot tycker jag inte at
 
 | Metodnamn                       | Länk eller kod      | Antal rader (ej ws) | Reflektion                                                                                                                                                                                                                                                                                                                                                                                                        |
 | ------------------------------- | ------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `getName()`                     | `Action.js`         | 1                   | Funktionen gör endast en sak: returnerar namnet på actionen. Den har inga argument och inga sidoeffekter. Detta följer principen om små funktioner och "Do One Thing".                                                                                                                                                                                                                                            |
-| `disable()`                     | `Action.js`         | 1                   | Funktionen har ett tydligt ansvar: att inaktivera actionen. Den har inga argument och är enkel att förstå. Den ändrar objektets tillstånd, vilket är en avsiktlig sidoeffekt. Jag tycker ändå att sidoeffekten är tydlig eftersom metodnamnet beskriver kommandot.                                                                                                                                                |
+| `getName()`                     | `Action.js`         | 3                  | Funktionen gör endast en sak: returnerar namnet på actionen. Den har inga argument och inga sidoeffekter. Detta följer principen om små funktioner och "Do One Thing".                                                                                                                                                                                                                                            |
+| `disable()`                     | `Action.js`         | 3                   | Funktionen har ett tydligt ansvar: att inaktivera actionen. Den har inga argument och är enkel att förstå. Den ändrar objektets tillstånd, vilket är en avsiktlig sidoeffekt. Jag tycker ändå att sidoeffekten är tydlig eftersom metodnamnet beskriver kommandot.                                                                                                                                                |
 | `addBinding(binding)`           | `Action.js`         | 5                   | Funktionen lägger till en binding om samma input inte redan finns. Den gör fortfarande en avgränsad sak, även om den innehåller kontrollogik. Namnet beskriver tydligt vad metoden gör och parametern `binding` beskriver vad som skickas in.                                                                                                                                                                     |
 | `bindAction(actionName, input)` | `ControlProfile.js` | 17                  | Detta är en av de längre metoderna i modulen. Den hittar actionen, kontrollerar att inputen inte redan används av en annan action och skapar sedan en binding. Funktionen har fortfarande ett sammanhängande ansvar, men den är mer komplex än mina enklaste metoder. Detta är ett exempel där regeln om små funktioner är relevant och där metoden eventuellt skulle kunna delas upp om den fortsätter att växa. |
 | `isActive()`                    | `Action.js`         | 13                  | Funktionen kontrollerar flera villkor för att avgöra om en action är aktiv: actionen måste vara aktiverad, minst en kontrollgrupp måste vara aktiverad om grupper används, och minst en binding måste vara nedtryckt. Den returnerar ett värde och ändrar inte objektets tillstånd. Jag tycker att den följer Command-Query Separation eftersom den frågar efter ett tillstånd utan att samtidigt ändra det.      |
@@ -58,6 +58,16 @@ vedertagna begrepp. (Cirka en halv sida.)*
 
 Svar:
 
+Under den här labben så lade jag mer fokus på kodkvalitet än i tidigare uppgifter. Eftersom resultatet skulle vara en modul för andra programmerare behövde jag ju tänka på hur koden skulle kunna förstås och användas av någon som inte är jag. Det gjorde att jag fick tänka mer på bland annat namngivning, separation of concerns, DRY och testbarhet.
+
+Jag försökte ge varje klass ett tydligt ansvar. Binding ansvarar för inputens tillstånd, Action ansvarar för actions och deras bindings, ControlGroup ansvarar för grupper av actions och ControlProfile samlar ihop actions och grupper. GameControls fungerar som den huvudsakliga main till modulen. Denna uppdelning gjorde koden strukturerad.
+
+Jag försökte också undvika duplicerad logik. Exempelvis hanteras relationen mellan actions och grupper genom metoderna addAction() och addGroup() istället för att samma logik skulle behöva skrivas på flera ställen. Jag använde även privata fält med # för att begränsa direkt åtkomst till objektens interna tillstånd.
+
+Testningen påverkade också min kodkvalitet. Genom att skriva tester för varje klass och köra testsviten ofta kunde jag upptäcka fel när implementationen fortfarande var liten. Det gjorde det enklare att ändra koden utan att vara osäker på om tidigare funktionalitet hade gått sönder. Mina 51 automatiserade tester gav därför ett konkret stöd för refaktorering och utveckling.
+
+Jag upptäckte samtidigt att kodkvalitet inte bara handlar om att koden fungerar. Vissa delar, exempelvis JSDoc-kommentarerna, kunde ha varit mer konsekventa. Jag har därför fått en större förståelse för att läsbarhet, tydliga abstraktioner, konsekventa namn och dokumentation är en del av själva kvaliteten på en modul.
+
 ## 4. Att skriva en modul
 
 *Hur var det att skriva kod för andra programmerare istället för en app med egna slutanvändare?
@@ -65,11 +75,27 @@ Vad blev din USP, och ändrades den under arbetets gång?*
 
 Svar:
 
+Jag tycker att det var skitsvårt eftersom jag behövde tänka på programmeraren som skulle använda koden istället för på en vanlig slutanvändare. I en app kan jag själv bestämma hur användaren ska navigera och vilka funktioner som ska finnas i gränssnittet. I en modul behöver jag istället skapa ett tydligt API som någon annan programmerare kan använda utan att behöva förstå implementationen.
+
+Det gjorde att jag behövde tänka mer på vilka klasser och metoder som skulle vara publika och vad modulen faktiskt skulle ansvara för. Jag valde därför att låta användaren skapa ControlProfile, Action, Binding och ControlGroup, och sedan använda GameControls för att hantera den aktiva profilen och input. Modulen lyssnar inte själv på tangentbord, mus eller handkontroll, utan applikationen skickar information till modulen genom exempelvis press() och release(). Detta gör att modulen kan användas tillsammans med olika typer av spel eller inputsystem.
+
+Min USP blev därför att skapa ett enkelt och engine-oberoende sätt att hantera game controls. En viktig del av detta är att samma modul kan användas för olika kontrollprofiler och att actions kan ha flera bindings. Samtidigt förhindrar modulen att samma input kopplas till flera actions inom samma profil.
+
+USP förändrades något under arbetets gång. Från början fokuserade jag främst på att skapa ett system för actions och bindings. När designen utvecklades lade jag till control groups och control profiles. Det gjorde lösningen mer flexibel utan att modulen behövde känna till något specifikt spel eller någon specifik spelmotor. 
+
 ## 5. Testning
 
 *Vilket av testalternativen valde du, och varför? Vad var svårast att testa i din modul?*
 
 Svar:
+
+Jag valde att använda Node.js inbyggda test runner eftersom den inte kräver några externa bibliotek och passar bra för en modul som är skriven i JavaScript. Jag skrev separata testfiler för de olika klasserna och testade både enskilda metoder och hur olika delar av modulen fungerar tillsammans.
+
+Det svåraste att testa var beteendet kring input och tillstånd. En Binding kan exempelvis vara pressed eller released, och detta påverkar om en Action är aktiv. Dessutom påverkas en actions status av om actionen själv är enabled och, om den tillhör control groups, om någon av grupperna är enabled. Det gjorde att jag behövde testa flera olika kombinationer av tillstånd för att kontrollera att logiken fungerade.
+
+Jag behövde också testa reglerna för bindings. Ett input får inte vara kopplat till flera actions inom samma ControlProfile, medan en action får ha flera olika bindings.
+
+Totalt har jag 51 automatiserade tester och alla 51 passerar. Att testa kontinuerligt under utvecklingen gjorde det enklare att upptäcka fel och ändra implementationen utan att behöva kontrollera all funktionalitet manuellt efter varje ändring. Testerna blev alltså nästan en hjälpreda och gav mig större säkerhet om/när jag ändrade koden.
 
 ## 6. AI-samarbete
 
@@ -80,3 +106,8 @@ testning eller kodkvalitetsreflektionerna, eller valde du bort AI i delar där d
 gången?*
 
 Svar:
+
+Ja, jag använde gratisversionen av ChatGPT! Men jag använde den ungefär på samma sätt:
+Som ett bollplank av idéer och scope, jag ber AIn hjälpa mig strukturera, eliminera bloat, men också att kolla kvalitén av min kod.
+"I vilken ordning bör jag göra detta?", "Vad borde jag prioritera först?", "Är det någon metod som du tycker fattas i en här klassen?" är prompts jag använt.
+I den här uppgiften har AIn varit till stor hjälp, speciellt när det kommer till de automatiserade testerna, där AIn fick dra ett tungt lass när jag inte förstod hur testerna fungerade. I tidigare uppgifter har AIns insats varit fluktuerande.
