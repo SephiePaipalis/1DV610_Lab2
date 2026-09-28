@@ -30,18 +30,26 @@ Jag håller i stort sett med om reglerna i kapitlet. Däremot tycker jag inte at
 
 ## 2. Funktioner
 
-| Metodnamn | Länk eller kod | Antal rader (ej ws) | Reflektion |
-| --------- | --------------- | -------------------- | ---------- |
-|           |                 |                       |            |
-|           |                 |                       |            |
-|           |                 |                       |            |
-|           |                 |                       |            |
-|           |                 |                       |            |
+| Metodnamn                       | Länk eller kod      | Antal rader (ej ws) | Reflektion                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ------------------------------- | ------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `getName()`                     | `Action.js`         | 1                   | Funktionen gör endast en sak: returnerar namnet på actionen. Den har inga argument och inga sidoeffekter. Detta följer principen om små funktioner och "Do One Thing".                                                                                                                                                                                                                                            |
+| `disable()`                     | `Action.js`         | 1                   | Funktionen har ett tydligt ansvar: att inaktivera actionen. Den har inga argument och är enkel att förstå. Den ändrar objektets tillstånd, vilket är en avsiktlig sidoeffekt. Jag tycker ändå att sidoeffekten är tydlig eftersom metodnamnet beskriver kommandot.                                                                                                                                                |
+| `addBinding(binding)`           | `Action.js`         | 5                   | Funktionen lägger till en binding om samma input inte redan finns. Den gör fortfarande en avgränsad sak, även om den innehåller kontrollogik. Namnet beskriver tydligt vad metoden gör och parametern `binding` beskriver vad som skickas in.                                                                                                                                                                     |
+| `bindAction(actionName, input)` | `ControlProfile.js` | 17                  | Detta är en av de längre metoderna i modulen. Den hittar actionen, kontrollerar att inputen inte redan används av en annan action och skapar sedan en binding. Funktionen har fortfarande ett sammanhängande ansvar, men den är mer komplex än mina enklaste metoder. Detta är ett exempel där regeln om små funktioner är relevant och där metoden eventuellt skulle kunna delas upp om den fortsätter att växa. |
+| `isActive()`                    | `Action.js`         | 13                  | Funktionen kontrollerar flera villkor för att avgöra om en action är aktiv: actionen måste vara aktiverad, minst en kontrollgrupp måste vara aktiverad om grupper används, och minst en binding måste vara nedtryckt. Den returnerar ett värde och ändrar inte objektets tillstånd. Jag tycker att den följer Command-Query Separation eftersom den frågar efter ett tillstånd utan att samtidigt ändra det.      |
 
-*Upptäckte du någon brist i hur du tidigare skrivit funktioner/metoder när du läste kapitlet om
-funktioner? Höll du med om alla "reglerna", eller finns det någon du ifrågasätter?*
+**Upptäckte du någon brist i hur du tidigare skrivit funktioner/metoder när du läste kapitlet om funktioner? Höll du med om alla "reglerna", eller finns det någon du ifrågasätter?**
 
-Svar:
+**Svar:**
+
+När jag läste kapitlet såg jag att jag redan hade försökt hålla de flesta metoderna små och fokuserade. Många metoder gör bara en sak, till exempel `getName()`, `enable()`, `disable()`, `press()` och `release()`. Detta gör koden lättare att läsa eftersom metodernas ansvar går att förstå från både namnet och den korta implementationen.
+
+Jag märkte också att `bindAction()` och `isActive()` är mer komplexa än flera av de andra metoderna. De innehåller flera kontroller och i `bindAction()` finns även loopar. Jag tycker fortfarande att deras logik hör ihop med metodens ansvar, men de visar att "Do One Thing" och regeln om små funktioner inte alltid är helt svartvita. En funktion kan innehålla flera steg och fortfarande ha ett sammanhängande syfte.
+
+Jag tycker att kapitlets idé om att funktioner ska ligga på en tydlig abstraktionsnivå är användbar. Exempelvis behöver användaren av `GameControls` inte veta hur en `Binding` lagrar sitt tillstånd. Användaren kan istället använda `press()` och `release()` på en högre nivå.
+
+Jag håller med om de flesta reglerna i kapitlet, särskilt att funktioner bör vara små, ha tydliga namn och göra en sak. Däremot tycker jag att man inte bör dela upp funktioner enbart för att uppfylla en viss radgräns. Om en funktion har ett tydligt och sammanhängande ansvar kan en något längre funktion ibland vara lättare att förstå än flera mycket små funktioner som tillsammans utför samma operation.
+
 
 ## 3. Din kodkvalitet
 
