@@ -7,18 +7,26 @@
 
 ## 1. Namngivning
 
-| Namn | Förklaring | Reflektion och regler från Clean Code |
-| ---- | ---------- | -------------------------------------- |
-|      |            |                                         |
-|      |            |                                         |
-|      |            |                                         |
-|      |            |                                         |
-|      |            |                                         |
+| Namn             | Förklaring                                                                                                       | Reflektion och regler från Clean Code                                                                                                                                                                                                                                                                                                               |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GameControls`   | Klassen som fungerar som huvudpunkt för att hantera kontrollprofiler och input.                                  | Jag tycker att namnet är tydligt eftersom det beskriver klassens övergripande ansvar. `GameControls` ger också ett tydligt sammanhang för metoder som `press()`, `release()` och `isActionActive()`.                                                                 |
+| `ControlProfile` | Representerar en uppsättning kontroller med actions, bindings och control groups.                                | Namnet beskriver tydligt vad objektet representerar och skiljer det från `GameControls`, som hanterar flera profiler. Jag tycker att detta följer principen om meningsfulla namn och meningsfulla distinktioner. Jag hade kunnat kalla den exempelvis `Profile`, men `ControlProfile` ger mer sammanhang och gör det tydligare vad profilen gäller. |
+| `Action`         | Representerar en handling i spelet, exempelvis `Jump`, som kan ha en eller flera bindings.                       | `Action` är ett kort men meningsfullt namn, det är också lätt att uttala och söka efter. I kombination med exempelvis `addBinding()` och `isActive()` blir det tydligt vad en action betyder i modulen.                                                           |
+| `Binding`        | Representerar kopplingen till en specifik input, exempelvis `SPACE`, och håller reda på om inputen är nedtryckt. | `Binding` är ett programmeringsbegrepp som passar bra för lösningen. Det följer Clean Code-regeln om att använda solution-domain-namn. Jag tycker också att namnet är bättre än exempelvis `InputData`, då `Data` är otydligt.                                                        |
+| `ControlGroup`   | Representerar en grupp av actions som kan aktiveras eller inaktiveras tillsammans.                               | `ControlGroup` beskriver både vad objektet är och vilket sammanhang gruppen tillhör. Namnet gör skillnaden mot `Action` och `ControlProfile` tydlig. Jag tycker att detta är ett exempel på meaningful context: ordet `Group` ensamt hade varit för generellt.                          |
 
-*Upptäckte du någon brist i din egen namngivning när du läste kapitlet om namngivning? Höll du med
-om alla "reglerna", eller finns det någon du ifrågasätter?*
+**Upptäckte du någon brist i din egen namngivning när du läste kapitlet om namngivning? Höll du med om alla "reglerna", eller finns det någon du ifrågasätter?**
 
-Svar:
+**Svar:**
+
+När jag läste kapitlet om meningsfulla namn upptäckte jag att jag generellt hade valt ganska tydliga namn i modulen. Namn som `GameControls`, `ControlProfile`, `Action`, `Binding` och `ControlGroup` beskriver de centrala koncepten och gör det möjligt att förstå mycket av koden utan att först läsa implementationen.
+
+Att namn ska ge sammanhang är relevant för min kod. Exempelvis hade `Group` varit ett ganska generellt namn, medan `ControlGroup` direkt visar vad gruppen hör ihop med. På samma sätt hade `Profile` varit mindre tydligt än `ControlProfile`.
+
+Jag håller också med om regeln att metoder bör ha namn som beskriver vad de gör. I min kod använder jag exempelvis `addAction()`, `bindAction()`, `press()`, `release()`, `enable()`, `disable()` och `isActive()`. Det gör att metodanropen går att förstå utan att läsa implementationen direkt.
+
+Jag håller i stort sett med om reglerna i kapitlet. Däremot tycker jag inte att längre namn automatiskt är bättre än kortare namn. `Action` är exempelvis ett mycket kort namn, men eftersom det är ett centralt begrepp i modulen är det ändå tydligt. För mig är det viktigaste att namnet beskriver konceptet och att sammanhanget gör betydelsen tydlig.
+
 
 ## 2. Funktioner
 
