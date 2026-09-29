@@ -16,7 +16,7 @@ The module also prevents the same input from being bound to multiple actions wit
 
 ## What does it not do?
 
-The module does **not** listen directly to keyboard, mouse, or controller events.
+The module does not listen directly to keyboard, mouse, or controller events.
 
 Instead, the application tells the module when an input is pressed or released:
 
@@ -25,7 +25,7 @@ controls.press('SPACE')
 controls.release('SPACE')
 ```
 
-This keeps the module independent from any particular game engine, UI framework, or input API.
+This keeps the module independent.
 
 ## Installation
 
@@ -33,7 +33,6 @@ Clone the repository:
 
 ```bash
 git clone https://github.com/SephiePaipalis/1DV610_Lab2.git
-cd 1DV610_Lab2
 ```
 
 No external runtime dependencies are required.
