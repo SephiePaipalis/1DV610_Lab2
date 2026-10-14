@@ -1,0 +1,5 @@
+export { GameControls } from './src/GameControls.js'
+export { ControlProfile } from './src/ControlProfile.js'
+export { Action } from './src/Action.js'
+export { Binding } from './src/Binding.js'
+export { ControlGroup } from './src/ControlGroup.js'
