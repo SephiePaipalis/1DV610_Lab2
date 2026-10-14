@@ -1,0 +1,9 @@
+
+{
+  "name": "game-controller",
+  "version": "1.0.0",
+  "description": "Reusable game controls module",
+  "type": "module",
+  "main": "game-controller/index.js",
+  "exports": "./game-controller/index.js"
+}
